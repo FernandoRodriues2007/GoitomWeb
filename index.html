@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOITM - Produtos de Qualidade</title>
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração do Tailwind para cores personalizadas -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'goitm-yellow': '#FFD700', // Amarelo dourado
+                        'goitm-white': '#FFFFFF',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos adicionais para animações e hover */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .btn-hover {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-hover:hover {
+            transform: scale(1.05);
+        }
+        /* Modal styles */
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-goitm-white text-gray-800 font-sans">
+    <!-- Navegação -->
+    <nav class="bg-goitm-white shadow-md sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo/Brand -->
+            <div class="text-2xl font-bold text-goitm-yellow">GOITM</div>
+            
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#inicio" class="text-gray-800 font-semibold hover:text-goitm-yellow transition duration-300">Início</a>
+                <a href="#produtos" class="text-gray-800 font-semibold hover:text-goitm-yellow transition duration-300">Produtos</a>
+                <a href="#contato" class="text-gray-800 font-semibold hover:text-goitm-yellow transition duration-300">Contato</a>
+                <a href="https://wa.me/244937384044" target="_blank" class="bg-goitm-yellow text-goitm-white px-6 py-2 rounded-full font-semibold btn-hover">WhatsApp</a>
+            </div>
+            
+            <!-- Menu Mobile (Hamburger) -->
+            <div class="md:hidden">
+                <button id="mobilemenuBtn" class="text-goitm-yellow text-3xl" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+        
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-goitm-white border-t border-gray-200">
+            <a href="#inicio" class="block px-4 py-3 text-gray-800 hover:bg-yellow-100 hover:text-goitm-yellow transition duration-300">Início</a>
+            <a href="#produtos" class="block px-4 py-3 text-gray-800 hover:bg-yellow-100 hover:text-goitm-yellow transition duration-300">Produtos</a>
+            <a href="#contato" class="block px-4 py-3 text-gray-800 hover:bg-yellow-100 hover:text-goitm-yellow transition duration-300">Contato</a>
+            <a href="https://wa.me/244937384044" target="_blank" class="block px-4 py-3 bg-goitm-yellow text-goitm-white font-semibold hover:bg-yellow-500 transition duration-300">WhatsApp</a>
+        </div>
+    </nav>
+
+    <!-- Banner Principal -->
+    <header id="inicio" class="bg-gradient-to-r from-goitm-yellow to-yellow-400 text-goitm-white py-20 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in">Bem-vindo à GOITM</h1>
+            <p class="text-lg md:text-xl mb-8">Sua fonte confiável para produtos de alta qualidade. Oferecemos trigo e sal frescos e acessíveis.</p>
+            <a href="#produtos" class="bg-goitm-white text-goitm-yellow px-8 py-3 rounded-full font-semibold btn-hover inline-block">Ver Produtos</a>
+        </div>
+    </header>
+
+    <!-- Seção de Produtos -->
+    <section id="produtos" class="py-16 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Nossos Produtos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Produto 1: Trigo -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover cursor-pointer" onclick="openModal('Trigo', '29.000 Kz', 'https://via.placeholder.com/400x300?text=Trigo')">
+                    <img src="https://via.placeholder.com/400x300?text=Trigo" alt="Imagem do produto Trigo" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Trigo</h3>
+                        <p class="text-goitm-yellow text-2xl font-bold mb-4">29.000 Kz</p>
+                        <button class="bg-goitm-yellow text-goitm-white px-6 py-2 rounded-full font-semibold btn-hover w-full" onclick="event.stopPropagation(); buyProduct('Trigo', '29.000 Kz')">Comprar</button>
+                    </div>
+                </div>
+                <!-- Produto 2: Sal -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover cursor-pointer" onclick="openModal('Sal', '13.000 Kz', 'https://via.placeholder.com/400x300?text=Sal')">
+                    <img src="https://via.placeholder.com/400x300?text=Sal" alt="Imagem do produto Sal" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Sal</h3>
+                        <p class="text-goitm-yellow text-2xl font-bold mb-4">13.000 Kz</p>
+                        <button class="bg-goitm-yellow text-goitm-white px-6 py-2 rounded-full font-semibold btn-hover w-full" onclick="event.stopPropagation(); buyProduct('Sal', '13.000 Kz')">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay opacity-0 pointer-events-none z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 modal-content transform scale-95">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modalTitle" class="text-2xl font-semibold"></h3>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                </div>
+                <img id="modalImage" src="" alt="Imagem do produto" class="w-full h-48 object-cover rounded mb-4">
+                <p id="modalPrice" class="text-goitm-yellow text-2xl font-bold mb-4"></p>
+                <p class="text-gray-600 mb-6">Detalhes do produto: Produto de alta qualidade, fresco e pronto para uso.</p>
+                <button id="modalBuyBtn" class="bg-goitm-yellow text-goitm-white px-6 py-2 rounded-full font-semibold btn-hover w-full">Comprar via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-gray-800 text-goitm-white py-8 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <p>&copy; 2023 GOITM. Todos os direitos reservados.</p>
+            <p class="mt-4">📞 <a href="https://wa.me/244937384044" class="text-goitm-yellow hover:underline">937384044</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Função para ativar/desativar o menu mobile
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Fechar menu mobile ao clicar em um link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.add('hidden');
+            });
+        });
+
+        // Função para abrir o modal
+        function openModal(name, price, image) {
+            document.getElementById('modalTitle').textContent = name;
+            document.getElementById('modalPrice').textContent = price;
+            document.getElementById('modalImage').src = image;
+            document.getElementById('modalBuyBtn').onclick = function() { buyProduct(name, price); };
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+            document.querySelector('.modal-content').classList.remove('scale-95');
+            document.querySelector('.modal-content').classList.add('scale-100');
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.querySelector('.modal-content').classList.remove('scale-100');
+            document.querySelector('.modal-content').classList.add('scale-95');
+        }
+
+        // Fechar modal ao clicar fora
+        document.getElementById('productModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        // Função para comprar via WhatsApp
+        function buyProduct(name, price) {
+            const message = `Olá, gostaria de comprar o produto ${name} no valor de ${price}.`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/244937384044?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
